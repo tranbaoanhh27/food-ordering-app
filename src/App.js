@@ -1,9 +1,16 @@
+import Meals from "./components/meals/Meals";
+import Header from "./components/ui/Header";
+import { CartContextProvider } from "./context/cart-context";
+
 function App() {
-  return (
-    <div>
-      <h2>Let's get started!</h2>
-    </div>
-  );
+    return (
+        <CartContextProvider>
+            <Header />
+            <main>
+                <Meals />
+            </main>
+        </CartContextProvider>
+    );
 }
 
 export default App;
