@@ -2,6 +2,11 @@ import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
+/**
+ * Functional component representing an overlay modal wrapper component
+ * @param {Function} onClose A Callback function to be called on backdrop clicked to close the modal
+ * @returns {JSX} The JSX Element to render the component
+ */
 const Modal = (props) => {
     return (
         <Fragment>

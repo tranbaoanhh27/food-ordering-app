@@ -3,7 +3,7 @@ import backgroundImage from "../../assets/meals.jpg";
 import HeaderCartButton from "./HeaderCartButton";
 import styled from "styled-components";
 
-const Header = (props) => {
+const Header = () => {
     return (
         <Fragment>
             <StyledHeader>

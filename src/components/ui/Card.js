@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * Functional component representing a card wrapper component
+ * @returns {JSX} A JSX Element to render the Card wrapper component
+ */
 const Card = (props) => {
     return <StyledCard style={props.style}>{props.children}</StyledCard>;
 };

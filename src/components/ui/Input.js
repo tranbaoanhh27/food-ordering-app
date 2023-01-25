@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+/**
+ * Functional component representing a styled input element
+ * @param {string} label The label for the input
+ * @param {Object} inputProps Properties for the input element, just like default HTML input
+ * @returns {JSX} The JSX Element to render the input element as a div
+ */
 const Input = (props) => {
     return (
         <Container>

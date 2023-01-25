@@ -3,13 +3,18 @@ import styled from "styled-components";
 import CartContext from "../../context/cart-context";
 import Input from "../ui/Input";
 
+/**
+ * Functional component representing a form to add meal item to cart
+ * @param {string} mealId The ID of the meal
+ * @returns {JSX} The JSX Element to render the form
+ */
 const MealItemForm = (props) => {
     const [quantity, setQuantity] = useState(1);
     const cartContext = useContext(CartContext);
 
     const submitHandler = (event) => {
         event.preventDefault();
-        cartContext.onAddToCart(props.meal.id, quantity);
+        cartContext.onAddToCart(props.mealId, quantity);
     };
 
     return (
@@ -17,7 +22,7 @@ const MealItemForm = (props) => {
             <Input
                 label="Sô lượng"
                 inputProps={{
-                    id: props.meal.id,
+                    id: props.mealId,
                     type: "number",
                     min: 1,
                     step: 1,

@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import MealItemForm from "./MealItemForm";
 
+/**
+ * Functional component representing a list item in MealsList
+ * @param {Object} meal An object representing a meal, keys = {id: string, name: string, price: number, description: string}
+ * @returns {JSX} A JSX Element to render the list item
+ */
 const MealItem = (props) => {
     return (
         <Meal>
@@ -10,7 +15,7 @@ const MealItem = (props) => {
                 <Description>{props.meal.description}</Description>
                 <Price>{`$${props.meal.price.toFixed(2)}`}</Price>
             </div>
-            <MealItemForm meal={{ ...props.meal }} />
+            <MealItemForm mealId={props.meal.id} />
         </Meal>
     );
 };

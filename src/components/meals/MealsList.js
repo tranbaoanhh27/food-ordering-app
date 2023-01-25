@@ -4,7 +4,7 @@ import Card from "../ui/Card";
 import styled from "styled-components";
 import MealItem from "./MealItem";
 
-const MealsList = (props) => {
+const MealsList = () => {
     return (
         <MealsSection>
             <Card>

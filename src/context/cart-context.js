@@ -6,6 +6,8 @@ const CartContext = React.createContext({
     onCloseCart: () => {},
     onOpenCart: () => {},
     cartItems: [],
+    cartItemCount: 0,
+    totalPrice: 0,
     onAddToCart: (mealId, quantity) => {},
     onRemoveFromCart: (mealId, quantity) => {},
 });
@@ -14,6 +16,8 @@ export default CartContext;
 
 export const CartContextProvider = (props) => {
     const [isCartOpening, setIsCartOpening] = useState(false);
+    const [itemCount, setItemCount] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const [cartItems, setCartItems] = useState(
         DEFAULT_MEALS.map((meal) => {
@@ -30,12 +34,12 @@ export const CartContextProvider = (props) => {
     };
 
     const addToCartItems = (mealId, quantity) => {
-        console.log("add to cart: ", mealId, quantity);
         setCartItems((prevItems) => {
             return prevItems.map((meal) => {
                 if (meal.id === mealId) {
-                    console.log("CATCH!");
                     meal.quantity += quantity;
+                    setTotalPrice((prev) => prev + meal.price * quantity);
+                    setItemCount((prev) => prev + 1);
                 }
                 return meal;
             });
@@ -47,6 +51,8 @@ export const CartContextProvider = (props) => {
             return prevItems.map((meal) => {
                 if (meal.id === mealId && meal.quantity >= quantity) {
                     meal.quantity -= quantity;
+                    setTotalPrice((prev) => prev - meal.price * quantity);
+                    setItemCount((prev) => prev - 1);
                 }
                 return meal;
             });
@@ -60,6 +66,8 @@ export const CartContextProvider = (props) => {
                 onCloseCart: onCloseCart,
                 onOpenCart: onOpenCart,
                 cartItems: cartItems,
+                cartItemCount: itemCount,
+                totalPrice: totalPrice,
                 onAddToCart: addToCartItems,
                 onRemoveFromCart: removeFromCartItems,
             }}>

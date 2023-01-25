@@ -1,21 +1,30 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import CartIcon from "../../assets/CartIcon.js";
 import styled from "styled-components";
 import Cart from "../cart/Cart.js";
 import CartContext from "../../context/cart-context.js";
 
-const HeaderCartButton = (props) => {
+const HeaderCartButton = () => {
     const cartContext = useContext(CartContext);
+    const [bumpAnimation, setBumpAnimation] = useState(false);
+
+    useEffect(() => {
+        if (cartContext.cartItemCount !== 0) setBumpAnimation(true);
+        const timer = setTimeout(() => setBumpAnimation(false), 300);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [cartContext.cartItemCount]);
 
     return (
         <Fragment>
             {cartContext.isCartOpening && <Cart />}
-            <Button onClick={cartContext.onOpenCart}>
+            <Button onClick={cartContext.onOpenCart} bump={bumpAnimation}>
                 <Icon>
                     <CartIcon />
                 </Icon>
                 <span>Giỏ hàng</span>
-                <Badge>4</Badge>
+                <Badge>{cartContext.cartItemCount}</Badge>
             </Button>
         </Fragment>
     );
@@ -44,6 +53,7 @@ const Button = styled.button`
     align-items: center;
     border-radius: 25px;
     font-weight: bold;
+    animation: ${(props) => (props.bump ? "bump 300ms ease-out" : "none")};
 
     &:hover,
     :active {
@@ -52,6 +62,24 @@ const Button = styled.button`
 
     &:hover ${Badge}, :active ${Badge} {
         background-color: #92320c;
+    }
+
+    @keyframes bump {
+        0% {
+            transform: scale(1);
+        }
+        10% {
+            transform: scale(0.9);
+        }
+        30% {
+            transform: scale(1.1);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 `;
 

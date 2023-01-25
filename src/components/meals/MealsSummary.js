@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const MealsSummary = (props) => {
+const MealsSummary = () => {
     return (
         <Summary>
             <h2>Những món ăn tuyệt hảo, sẵn sàng được giao đến bàn ăn của bạn!</h2>

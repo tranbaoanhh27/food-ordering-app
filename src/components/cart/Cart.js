@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import CartContext from "../../context/cart-context";
 import Modal from "../ui/Modal";
 import styled from "styled-components";
+import CartItem from "./CartItem";
 
-const Cart = (props) => {
+const Cart = () => {
     const cartContext = useContext(CartContext);
 
     return (
@@ -13,17 +14,17 @@ const Cart = (props) => {
                     {cartContext.cartItems
                         .filter((item) => item.quantity > 0)
                         .map((item) => (
-                            <li key={item.id}>{`${item.name} x${item.quantity}`}</li>
+                            <CartItem key={item.id} item={item} />
                         ))}
                 </CartItems>
                 <TotalPrice>
                     <h5>Tổng sô tiên:</h5>
-                    <h5>{`$55.99`}</h5>
+                    <h5>{`$${cartContext.totalPrice.toFixed(2)}`}</h5>
                 </TotalPrice>
             </main>
             <Actions>
                 <button onClick={cartContext.onCloseCart}>Đóng</button>
-                <ConfirmButton>Đặt hàng</ConfirmButton>
+                {cartContext.cartItemCount !== 0 && <ConfirmButton>Đặt hàng</ConfirmButton>}
             </Actions>
         </Modal>
     );
