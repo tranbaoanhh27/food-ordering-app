@@ -14,7 +14,7 @@ const MealItemForm = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        cartContext.onAddToCart(props.mealId, quantity);
+        cartContext.onAddToCart(props.meal, quantity);
     };
 
     return (
@@ -22,7 +22,7 @@ const MealItemForm = (props) => {
             <Input
                 label="Sô lượng"
                 inputProps={{
-                    id: props.mealId,
+                    id: props.meal.id,
                     type: "number",
                     min: 1,
                     step: 1,

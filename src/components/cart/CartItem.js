@@ -10,7 +10,7 @@ import CartContext from "../../context/cart-context";
 const CartItem = (props) => {
     const cartContext = useContext(CartContext);
 
-    const addMoreToCart = () => cartContext.onAddToCart(props.item.id, 1);
+    const addMoreToCart = () => cartContext.onAddToCart(props.item, 1);
 
     const removeOneFromCart = () => cartContext.onRemoveFromCart(props.item.id, 1);
 

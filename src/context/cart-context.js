@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { DEFAULT_MEALS } from "../data/default-meals";
+import React, { useCallback, useEffect, useState } from "react";
+import ENDPOINT from "../constants/api-endpoints";
+import useFetch from "../hooks/use-fetch";
 
 const CartContext = React.createContext({
     isCartOpening: false,
@@ -8,7 +9,7 @@ const CartContext = React.createContext({
     cartItems: [],
     cartItemCount: 0,
     totalPrice: 0,
-    onAddToCart: (mealId, quantity) => {},
+    onAddToCart: (meal, quantity) => {},
     onRemoveFromCart: (mealId, quantity) => {},
 });
 
@@ -16,14 +17,29 @@ export default CartContext;
 
 export const CartContextProvider = (props) => {
     const [isCartOpening, setIsCartOpening] = useState(false);
-    const [itemCount, setItemCount] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [itemCount, setItemCount] = useState(undefined);
+    const [totalPrice, setTotalPrice] = useState(undefined);
+    const [cartItems, setCartItems] = useState(undefined);
 
-    const [cartItems, setCartItems] = useState(
-        DEFAULT_MEALS.map((meal) => {
-            return { ...meal, quantity: 0 };
-        })
-    );
+    const [doFetchCart, isFetchingCart, errorFetchCart] = useFetch();
+
+    const uploadData = useCallback(async () => {
+        const data = { itemCount, totalPrice, cartItems };
+        await doFetchCart(ENDPOINT.CART, {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }, [itemCount, totalPrice, cartItems, doFetchCart]);
+
+    const downloadData = useCallback(async () => {
+        const data = await doFetchCart(ENDPOINT.CART);
+        setCartItems(data.cartItems || []);
+        setItemCount(data.itemCount || 0);
+        setTotalPrice(data.totalPrice || 0);
+    }, [doFetchCart]);
 
     const onCloseCart = () => {
         setIsCartOpening(false);
@@ -33,31 +49,45 @@ export const CartContextProvider = (props) => {
         setIsCartOpening(true);
     };
 
-    const addToCartItems = (mealId, quantity) => {
+    const addToCartItems = (meal, quantity) => {
+        setTotalPrice((prev) => prev + meal.price * quantity);
+        setItemCount((prev) => prev + quantity);
         setCartItems((prevItems) => {
-            return prevItems.map((meal) => {
-                if (meal.id === mealId) {
-                    meal.quantity += quantity;
-                    setTotalPrice((prev) => prev + meal.price * quantity);
-                    setItemCount((prev) => prev + 1);
-                }
-                return meal;
+            const exist = prevItems.findIndex((item) => item.id === meal.id) !== -1;
+            if (!exist) return [...prevItems, { ...meal, quantity: quantity }];
+            return prevItems.map((item) => {
+                if (item.id === meal.id) item.quantity += quantity;
+                return item;
             });
         });
     };
 
     const removeFromCartItems = (mealId, quantity) => {
         setCartItems((prevItems) => {
-            return prevItems.map((meal) => {
-                if (meal.id === mealId && meal.quantity >= quantity) {
-                    meal.quantity -= quantity;
-                    setTotalPrice((prev) => prev - meal.price * quantity);
-                    setItemCount((prev) => prev - 1);
-                }
-                return meal;
-            });
+            return prevItems
+                .map((meal) => {
+                    if (meal.id === mealId && meal.quantity >= quantity) {
+                        meal.quantity -= quantity;
+                        setTotalPrice((prev) => prev - meal.price * quantity);
+                        setItemCount((prev) => prev - 1);
+                    }
+                    return meal;
+                })
+                .filter((item) => item.quantity > 0);
         });
     };
+
+    useEffect(() => {
+        downloadData();
+    }, [downloadData]);
+
+    useEffect(() => {
+        if (itemCount !== undefined && cartItems !== undefined && totalPrice !== undefined) uploadData();
+    }, [itemCount, cartItems, totalPrice, uploadData]);
+
+    useEffect(() => {
+        if (errorFetchCart) alert(errorFetchCart.message);
+    }, [errorFetchCart]);
 
     return (
         <CartContext.Provider

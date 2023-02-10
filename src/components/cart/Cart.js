@@ -6,16 +6,13 @@ import CartItem from "./CartItem";
 
 const Cart = () => {
     const cartContext = useContext(CartContext);
-
     return (
         <Modal onClose={cartContext.onCloseCart}>
             <main>
                 <CartItems>
-                    {cartContext.cartItems
-                        .filter((item) => item.quantity > 0)
-                        .map((item) => (
-                            <CartItem key={item.id} item={item} />
-                        ))}
+                    {cartContext.cartItems.map((item) => (
+                        <CartItem key={item.id} item={item} />
+                    ))}
                 </CartItems>
                 <TotalPrice>
                     <h5>Tổng sô tiên:</h5>
