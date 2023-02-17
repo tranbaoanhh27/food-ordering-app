@@ -20,7 +20,7 @@ const MealItemForm = (props) => {
     return (
         <Form onSubmit={submitHandler}>
             <Input
-                label="Sô lượng"
+                label="Số lượng"
                 inputProps={{
                     id: props.meal.id,
                     type: "number",

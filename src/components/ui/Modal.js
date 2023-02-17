@@ -21,7 +21,8 @@ export default Modal;
 // Styled Components
 const Container = styled.div`
     position: fixed;
-    top: 20vh;
+    top: 2vh;
+    max-height: 96vh;
     left: 5%;
     width: 90%;
     background-color: white;

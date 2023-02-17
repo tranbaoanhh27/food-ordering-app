@@ -11,6 +11,7 @@ const CartContext = React.createContext({
     totalPrice: 0,
     onAddToCart: (meal, quantity) => {},
     onRemoveFromCart: (mealId, quantity) => {},
+    resetCart: () => {},
 });
 
 export default CartContext;
@@ -36,9 +37,11 @@ export const CartContextProvider = (props) => {
 
     const downloadData = useCallback(async () => {
         const data = await doFetchCart(ENDPOINT.CART);
-        setCartItems(data.cartItems || []);
-        setItemCount(data.itemCount || 0);
-        setTotalPrice(data.totalPrice || 0);
+        if (data) {
+            setCartItems(data.cartItems || []);
+            setItemCount(data.itemCount || 0);
+            setTotalPrice(data.totalPrice || 0);
+        }
     }, [doFetchCart]);
 
     const onCloseCart = () => {
@@ -77,6 +80,12 @@ export const CartContextProvider = (props) => {
         });
     };
 
+    const resetCart = () => {
+        setCartItems([]);
+        setItemCount(0);
+        setTotalPrice(0);
+    }
+
     useEffect(() => {
         downloadData();
     }, [downloadData]);
@@ -100,6 +109,7 @@ export const CartContextProvider = (props) => {
                 totalPrice: totalPrice,
                 onAddToCart: addToCartItems,
                 onRemoveFromCart: removeFromCartItems,
+                resetCart: resetCart,
             }}>
             {props.children}
         </CartContext.Provider>

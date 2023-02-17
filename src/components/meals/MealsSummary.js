@@ -6,10 +6,10 @@ const MealsSummary = () => {
         <Summary>
             <h2>Những món ăn tuyệt hảo, sẵn sàng được giao đến bàn ăn của bạn!</h2>
             <p>
-                Tât cả các món ăn của chúng tôi đêu được nâu với các nguyên liệu thượng hạng, tươi ngon và dĩ nhiên, bởi
-                các đâu bếp hàng đâu!
+                Tất cả các món ăn của chúng tôi đều được nấu với các nguyên liệu thượng hạng, tươi ngon và dĩ nhiên, bởi
+                các đầu bếp hàng đầu!
             </p>
-            <p>Đơn giản là chọn món và thưởng thuc chúng ngay tại nhà bạn!</p>
+            <p>Đơn giản là chọn món và thưởng thức chúng ngay tại nhà bạn!</p>
         </Summary>
     );
 };
