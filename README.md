@@ -4,6 +4,7 @@ A practice project on ReactJS, build a web app to order food.
 ## Technologies
 * Frontend framework: [React.js](https://reactjs.org/)
 * Libraries: [styled-components](https://styled-components.com/)
+* Database: [Firebase Realtime Database](https://firebase.google.com/docs/database)
 
 ## How to run
 * As a dependency of the React.js framework, NodeJS must be installed. Follow instructions on [NodeJS official website](https://nodejs.org/en/).
@@ -18,3 +19,4 @@ A practice project on ReactJS, build a web app to order food.
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/108526097/214481827-f14a6114-90d2-4167-97ec-7b22e1c2906b.png)
 ![image](https://user-images.githubusercontent.com/108526097/214481969-1ef945ce-b1fd-4f09-80d8-a97de3199b19.png)
+![image](https://user-images.githubusercontent.com/108526097/219570045-eead831b-4c4e-4ad1-a237-b561a8f5f2d5.png)
