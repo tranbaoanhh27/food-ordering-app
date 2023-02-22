@@ -151,6 +151,7 @@ const Actions = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: 1rem;
+    overflow-x: hidden;
 
     & button {
         margin-inline-end: 2rem;

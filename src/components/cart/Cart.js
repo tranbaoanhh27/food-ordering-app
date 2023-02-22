@@ -21,7 +21,7 @@ const Cart = () => {
                     ))}
                 </CartItems>
                 <TotalPrice>
-                    <h5>Tổng sô tiên:</h5>
+                    <h5>Tổng số tiền:</h5>
                     <h5>{`$${cartContext.totalPrice.toFixed(2)}`}</h5>
                 </TotalPrice>
             </main>
