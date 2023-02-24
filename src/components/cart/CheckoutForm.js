@@ -104,6 +104,8 @@ export default CheckoutForm;
 
 const Container = styled.div`
     text-align: center;
+    max-height: 40vh;
+    overflow-y: scroll;
 
     & h3 {
         margin-bottom: 0px;
@@ -114,8 +116,6 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     text-align: start;
-    max-height: 35vh;
-    overflow-y: scroll;
 
     & label {
         margin-top: 1rem;
